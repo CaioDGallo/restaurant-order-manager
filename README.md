@@ -53,6 +53,10 @@ Start the development server with auto-reload:
 docker-compose up -d
 ```
 
+## Postman Collection
+
+The [postman collection](./restaurant-orders.postman_collection.json) can be used to test the API endpoints.
+
 ## Testing
 
 Tests run against a real test database for more accurate and simpler testing:
