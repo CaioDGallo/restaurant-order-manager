@@ -62,6 +62,9 @@ The [postman collection](./restaurant-orders.postman_collection.json) can be use
 Tests run against a real test database for more accurate and simpler testing:
 
 ```bash
+#Install dependencies
+npm install
+
 # Setup test database
 npm run test:db:setup
 
