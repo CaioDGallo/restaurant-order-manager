@@ -13,7 +13,6 @@ if (process.env.NODE_ENV === 'test') {
 const sequelize = new Sequelize(dbUrl, {
   dialect: 'postgres',
   logging: process.env.NODE_ENV === 'development' ? console.log : false,
-  // logging: console.log,
   define: {
     timestamps: true,
     underscored: true,

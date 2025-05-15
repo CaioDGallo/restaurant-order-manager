@@ -1,7 +1,7 @@
 import MenuRepository, { MenuItemData } from '../repositories/MenuRepository';
 import MenuItem, { MenuItemCategory } from '../models/MenuItem';
 import { ValidationError } from 'sequelize';
-import { ServiceResponse } from '../utils/api';
+import { ServiceResponse } from '../types/Api';
 
 interface MenuQueryParams {
   category?: string;

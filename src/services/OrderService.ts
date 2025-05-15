@@ -5,7 +5,7 @@ import { Order } from '../models';
 import { OrderStatus } from '../models/Order';
 import sequelize from '../config/database';
 import { Transaction } from 'sequelize';
-import { ServiceResponse } from '../utils/api';
+import { ServiceResponse } from '../types/Api';
 
 interface OrderItemInput {
   menu_item_id: number;

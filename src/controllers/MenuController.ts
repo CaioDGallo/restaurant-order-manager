@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import MenuService from '../services/MenuService';
+import HttpStatus from '../types/HttpStatus';
 
 class MenuController {
   public async addItem(req: Request, res: Response) {
     const { name, description, price, category } = req.body;
     
     if (!name || !description || price === undefined || !category) {
-      res.status(400).json({
+      res.status(HttpStatus.BAD_REQUEST).json({
         error: 'All fields are required: name, description, price, category'
       });
       return;
@@ -15,14 +16,14 @@ class MenuController {
     const result = await MenuService.addMenuItem({ name, description, price, category });
     
     if (result.success) {
-      res.status(201).json(result.data);
+      res.status(HttpStatus.CREATED).json(result.data);
     } else {
       if (result.error.includes('Category must be one of')) {
-        res.status(400).json({ error: result.error });
+        res.status(HttpStatus.BAD_REQUEST).json({ error: result.error });
       } else if (result.error === 'Price must be greater than or equal to zero') {
-        res.status(400).json({ error: result.error });
+        res.status(HttpStatus.BAD_REQUEST).json({ error: result.error });
       } else {
-        res.status(500).json({ error: result.error });
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: result.error });
       }
     }
   }
@@ -35,12 +36,12 @@ class MenuController {
     const result = await MenuService.listMenuItems({ category, page, limit });
     
     if (result.success) {
-      res.status(200).json(result.data);
+      res.status(HttpStatus.OK).json(result.data);
     } else {
       if (result.error.includes('Category must be one of')) {
-        res.status(400).json({ error: result.error });
+        res.status(HttpStatus.BAD_REQUEST).json({ error: result.error });
       } else {
-        res.status(500).json({ error: result.error });
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: result.error });
       }
     }
   }

@@ -1,12 +1,13 @@
 import { Request, Response } from 'express';
 import CustomerService from '../services/CustomerService';
+import HttpStatus from '../types/HttpStatus';
 
 class CustomerController {
   public async registerCustomer(req: Request, res: Response) {
     const { name, email, phone } = req.body;
 
     if (!name || !email || !phone) {
-      res.status(400).json({
+      res.status(HttpStatus.BAD_REQUEST).json({
         error: 'All fields are required: name, email, phone'
       });
       return;
@@ -15,12 +16,12 @@ class CustomerController {
     const result = await CustomerService.registerCustomer({ name, email, phone });
 
     if (result.success) {
-      res.status(201).json(result.data);
+      res.status(HttpStatus.CREATED).json(result.data);
     } else {
       if (result.error === 'Email already exists') {
-        res.status(400).json({ error: result.error });
+        res.status(HttpStatus.BAD_REQUEST).json({ error: result.error });
       } else {
-        res.status(500).json({ error: result.error });
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: result.error });
       }
     }
   }
@@ -35,14 +36,14 @@ class CustomerController {
 
     if ('success' in result && !result.success) {
       if (result.error === 'Customer not found') {
-        res.status(404).json({ error: result.error });
+        res.status(HttpStatus.NOT_FOUND).json({ error: result.error });
       } else {
-        res.status(500).json({ error: result.error });
+        res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ error: result.error });
       }
       return;
     }
 
-    res.status(200).json(result);
+    res.status(HttpStatus.OK).json(result);
   }
 }
 

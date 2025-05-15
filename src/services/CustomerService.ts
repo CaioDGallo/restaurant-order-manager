@@ -1,7 +1,7 @@
 import CustomerRepository, { CustomerData } from '../repositories/CustomerRepository';
 import { ValidationError, UniqueConstraintError } from 'sequelize';
 import { OrderItem, Customer, MenuItem } from '../models';
-import { ServiceError, ServiceResponse } from '../utils/api';
+import { ServiceError, ServiceResponse } from '../types/Api';
 
 interface FormattedOrderItem {
   menu_item_id: number;
