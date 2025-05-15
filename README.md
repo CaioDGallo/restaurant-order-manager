@@ -18,6 +18,11 @@ The application follows a layered architecture:
 
 ## Setup & Installation
 
+### Requirements
+
+- Node.js LTS v22.15.0
+- Docker
+
 ### Docker Setup
 
 1. Clone the repository
@@ -51,6 +56,11 @@ Start the development server with auto-reload:
 ```bash
 # Local development using Docker (already configured to auto-reload)
 docker-compose up -d
+
+docker exec restaurant-orders npx sequelize-cli db:migrate
+
+# (Optional) Seed the database with test data:
+docker exec restaurant-orders npx sequelize-cli db:seed:all
 ```
 
 ## Postman Collection
@@ -62,7 +72,7 @@ The [postman collection](./restaurant-orders.postman_collection.json) can be use
 Tests run against a real test database for more accurate and simpler testing:
 
 ```bash
-#Install dependencies
+# Install dependencies
 npm install
 
 # Setup test database
@@ -74,17 +84,6 @@ npm test
 # Generate coverage report
 npm run test:coverage
 ```
-
-### Testing with Docker
-
-Tests can also be run using Docker, but the test database must still be set up manually:
-
-```bash
-docker exec -it restaurant-orders npm run test:db:setup
-docker exec -it restaurant-orders npm test
-```
-
-The test database is automatically set up during test runs.
 
 ## Building and Running
 
